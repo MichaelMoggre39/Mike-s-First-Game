@@ -1,0 +1,6 @@
+/* Minimal reset for a clean full-screen canvas */
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; }
+html, body { margin: 0; }
+body { background: #161d25; color: #cbd5e1; }
