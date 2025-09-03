@@ -56,6 +56,8 @@ export class MainScene extends Phaser.Scene {
   private portalRadius = 34
   private terminal?: Phaser.GameObjects.Container
   private terminalRadius = 36
+  // Feature flag: disable the upgrade terminal/panel when false
+  private upgradeTerminalEnabled = false
   private panel?: Phaser.GameObjects.Container
   private panelOpen = false
   private dummies: Array<{ g: Phaser.GameObjects.Container; hp: number; maxHp: number; x: number; y: number }> = []
@@ -749,13 +751,17 @@ export class MainScene extends Phaser.Scene {
     bed.add([bedBase, mattress, pillow])
     this.bed = bed
 
-    const terminal = this.add.container(0, 0)
-    const base = this.add.rectangle(0, 0, 56, 42, 0x202b36, 0.9).setStrokeStyle(2, 0x334155)
-    const screen = this.add.rectangle(0, -6, 40, 16, 0x1e293b, 1).setStrokeStyle(1, 0x3b82f6)
-    const light = this.add.circle(0, 12, 4, 0x22c55e, 0.9)
-    terminal.add([base, screen, light])
-    this.tweens.add({ targets: light, alpha: 0.4, yoyo: true, duration: 900, repeat: -1, ease: 'Sine.inOut' })
-    this.terminal = terminal
+    if (this.upgradeTerminalEnabled) {
+      const terminal = this.add.container(0, 0)
+      const base = this.add.rectangle(0, 0, 56, 42, 0x202b36, 0.9).setStrokeStyle(2, 0x334155)
+      const screen = this.add.rectangle(0, -6, 40, 16, 0x1e293b, 1).setStrokeStyle(1, 0x3b82f6)
+      const light = this.add.circle(0, 12, 4, 0x22c55e, 0.9)
+      terminal.add([base, screen, light])
+      this.tweens.add({ targets: light, alpha: 0.4, yoyo: true, duration: 900, repeat: -1, ease: 'Sine.inOut' })
+      this.terminal = terminal
+    } else {
+      this.terminal = undefined
+    }
 
     // Training dummies (spawn arbitrary; layout will line them up)
     for (let i = 0; i < 3; i++) this.spawnDummy(0, 0)

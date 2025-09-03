@@ -9,6 +9,23 @@ A small top-down Phaser 3 game with a safe room, simple combat prototype, and li
 - Start dev server: `npm run dev`
 - Build for production: `npm run build`
 
+## Deploy
+
+- GitHub Pages (static site):
+  - Ensure `vite.config.ts` has `base: './'` (already set).
+  - Build: `npm run build` (outputs `dist/`).
+  - Serve from GitHub Pages:
+    - Create a new repo on GitHub and push this project (see Git section below).
+    - In GitHub, enable Pages to serve from the `gh-pages` branch or `/docs`.
+    - Option A (branch): Use an action to publish `dist/` to `gh-pages`.
+    - Option B (docs): Move contents of `dist/` into a `/docs` folder and enable Pages from `docs/`.
+
+- itch.io (HTML5):
+  - Build: `npm run build`.
+  - Zip the contents of `dist/` (not the folder itself). The zip root must contain `index.html`.
+  - On itch.io, create a new project → "Kind of project: HTML" → Upload the zip → Check "This file will be played in the browser" → Save & View.
+  - With `base: './'` the paths are relative, so assets load correctly in itch.io’s subpath sandbox.
+
 ## Controls
 
 - Left Click: Dash to cursor
@@ -35,11 +52,23 @@ A small top-down Phaser 3 game with a safe room, simple combat prototype, and li
 ## Git / Repo
 
 - This repo includes a `.gitignore` suitable for Node/Vite and a `.gitattributes` for Git LFS.
-- If you haven’t yet, install LFS locally:
+- If you haven't yet, install LFS locally:
   - `git lfs install`
   - (LFS patterns are already in `.gitattributes`.)
+
+### Push to GitHub (new repo)
+
+1. Create a new empty repository on GitHub (without adding a README).
+2. In this folder, run:
+   - `git remote add origin https://github.com/<you>/<repo>.git`
+   - `git branch -M main`
+   - `git add -A && git commit -m "Initial commit"`
+   - `git push -u origin main`
+
+### Optional: Deploy to GitHub Pages via Actions
+
+Add a workflow that builds and publishes `dist/` to Pages. See GitHub’s "Deploying a static site" docs or use `actions/deploy-pages` with `actions/upload-pages-artifact` after `npm run build`.
 
 ## CI (GitHub Actions)
 
 A minimal CI workflow builds the project on push/PR to ensure it stays green. See `.github/workflows/ci.yml`.
-
