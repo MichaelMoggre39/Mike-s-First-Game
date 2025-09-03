@@ -12,13 +12,11 @@ A small top-down Phaser 3 game with a safe room, simple combat prototype, and li
 ## Controls
 
 - Left Click: Dash to cursor
-- Shift + Left Click: Force direct dash (ignores pathing)
 - Right Click: Shoot
 - F: Toggle fullscreen
 - F3: Toggle debug overlays
 - N: Advance to next level when prompted
-- R: Restart after death (returns to Safe Room)
-- Safe Room: Walk into the portal to start Level 1; walk up to the terminal to open the upgrade panel (close with `E` or `Esc`)
+- Safe Room: Walk into the portal to start Level 1
 
 ## Notes
 
